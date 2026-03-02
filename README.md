@@ -1,8 +1,19 @@
 # bouncer
 
-## Getting Started
+A fun browser animation of a couple of bouncing balls using p5.js
 
-Open `index.html` in your web browser and start editing `sketch.js`.
+## Ideas
+
+- [x] Spawn random bouncers with button
+- [x] count bouncers
+- [x] collision with wall
+- [] collision with each other
+- [] chance to split on collision
+- [] make bouncing and collision sounds
+- [] add gravity
+- [] new bouncer where the user clicks
+- [] publish to [github pages](https://domfoo.github.io/bouncer)
+
 
 ## Running Locally
 
@@ -18,8 +29,3 @@ npx http-server
 # Using VS Code Live Server extension
 # Right-click index.html -> "Open with Live Server"
 ```
-
-## Resources
-
-- [p5.js 2.0](https://beta.p5js.org/)
-- [p5.js Reference](https://p5js.org/reference/)
