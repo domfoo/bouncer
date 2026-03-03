@@ -21,13 +21,27 @@ class Bouncer {
 
   draw() {
     // collision with walls
-    if (this.position.x < 0 + this.radius || this.position.x > width - this.radius) {
+    // left wall
+    if (this.position.x < 0 + this.radius) {
+        this.position.x = this.radius;
         this.velocity.x = -this.velocity.x;
     }
-    if (this.position.y < 0 + this.radius || this.position.y > height - this.radius) {
+    // right wall
+    if (this.position.x > width - this.radius) {
+        this.position.x = width - this.radius;
+        this.velocity.x = -this.velocity.x;
+    }
+    // top wall
+    if (this.position.y < 0 + this.radius) {
+        this.position.y = this.radius;
         this.velocity.y = -this.velocity.y;
     }
-    
+    // bottom wall
+    if (this.position.y > height - this.radius) {
+        this.position.y = height - this.radius;
+        this.velocity.y = -this.velocity.y;
+    }
+
     // collision with other bouncers
     for (let b of bouncers) {
       if (this === b) {
