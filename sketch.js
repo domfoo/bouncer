@@ -93,5 +93,7 @@ function draw() {
 }
 
 function mousePressed() {
-    bouncers.push(new Bouncer({position: createVector(mouseX, mouseY)}))
+    if (mouseX > 0 && mouseX < width && mouseY > 0 && mouseY < height) {
+        bouncers.push(new Bouncer({position: createVector(mouseX, mouseY)}))
+    }
 }
