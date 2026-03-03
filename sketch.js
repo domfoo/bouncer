@@ -1,6 +1,3 @@
-let START_X;
-let START_Y;
-
 const bouncers = []
 
 class Bouncer {
@@ -54,14 +51,7 @@ class Bouncer {
 
 
 function setup() {
-  createCanvas(400, 400);
-  START_X = width/2;
-  START_Y = height/2;
-  
-  let startButton = createButton("new bouncer");
-  startButton.mousePressed(() => {
-    bouncers.push(new Bouncer({velocity: createVector(1,0), mass: 3}));
-  });
+  createCanvas(800, 600);
 }
 
 function draw() {
@@ -76,4 +66,8 @@ function draw() {
   for (let b of bouncers) {
     b.draw();
   }
+}
+
+function mousePressed() {
+    bouncers.push(new Bouncer({position: createVector(mouseX, mouseY)}))
 }

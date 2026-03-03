@@ -4,14 +4,14 @@ A fun browser animation of a couple of bouncing balls using p5.js
 
 ## Ideas
 
-- [x] Spawn random bouncers with button
+- [x] Spawn random bouncers
 - [x] count bouncers
 - [x] collision with wall
+- [x] new bouncer where the user clicks
 - [] collision with each other
 - [] chance to split on collision
 - [] make bouncing and collision sounds
 - [] add gravity
-- [] new bouncer where the user clicks
 - [] publish to [github pages](https://domfoo.github.io/bouncer)
 
 
