@@ -1,9 +1,7 @@
-const bouncers = []
-
 class Bouncer {
   constructor({
     position = createVector(width/2, height/2),
-    velocity = createVector(random(-1, 1), random(-1, 1)),
+    velocity = p5.Vector.random2D(),
     radius = 15,
     c = color(random(255), random(255), random(255)),
     speed = random(1, 5),
@@ -17,6 +15,8 @@ class Bouncer {
     this.mass = mass;
     
     this.gravity = createVector(0, 0,1 * this.mass);
+    this.collisionCounter = 0;
+    this.maxCollisions = 3;
   }
 
   draw() {
@@ -25,21 +25,25 @@ class Bouncer {
     if (this.position.x < 0 + this.radius) {
         this.position.x = this.radius;
         this.velocity.x = -this.velocity.x;
+        this.collisionCounter += 1;
     }
     // right wall
     if (this.position.x > width - this.radius) {
         this.position.x = width - this.radius;
         this.velocity.x = -this.velocity.x;
+        this.collisionCounter += 1;
     }
     // top wall
     if (this.position.y < 0 + this.radius) {
         this.position.y = this.radius;
         this.velocity.y = -this.velocity.y;
+        this.collisionCounter += 1;
     }
     // bottom wall
     if (this.position.y > height - this.radius) {
         this.position.y = height - this.radius;
         this.velocity.y = -this.velocity.y;
+        this.collisionCounter += 1;
     }
 
     // collision with other bouncers
@@ -47,10 +51,15 @@ class Bouncer {
       if (this === b) {
         continue;
       }
-      if (this.position.dist(b.position) < this.radius+ b.radius) {
+      if (this.position.dist(b.position) < this.radius + b.radius) {
         //console.log("Distance: " + this.position.dist(b.position));
         break;
       }
+    }
+
+    // break bouncer if it collided to many times
+    if (this.collisionCounter > this.maxCollisions) {
+        bouncers = bouncers.filter(item => item !== this)
     }
 
     // position_i+1 = position_i + speed*velocity
@@ -63,6 +72,7 @@ class Bouncer {
   }
 }
 
+var bouncers = []
 
 function setup() {
   createCanvas(800, 600);
