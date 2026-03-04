@@ -9,10 +9,10 @@ A fun browser animation of a couple of bouncing balls using p5.js
 - [x] collision with wall
 - [x] new bouncer where the user clicks
 - [x] collision with each other
-- [] add gravity
-- [] chance to split on collision
-- [] make bouncing and collision sounds
-- [] publish to [github pages](https://domfoo.github.io/bouncer)
+- [ ] add gravity
+- [ ] chance to split on collision
+- [ ] make bouncing and collision sounds
+- [ ] publish to [github pages](https://domfoo.github.io/bouncer)
 
 
 ## Running Locally
