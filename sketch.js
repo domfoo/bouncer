@@ -5,7 +5,9 @@ class Bouncer {
         radius = 15,
         c = color(random(255), random(255), random(255)),
         speed = random(1, 5),
-        mass = 1,
+        mass = 10,
+        maxBursts = 1,
+        maxCollisions = 3,
     } = {}) {
         this.position = position;
         this.velocity = velocity;
@@ -14,8 +16,10 @@ class Bouncer {
         this.speed = speed;
         this.mass = mass;
 
+        this.burstCounter = 0;
+        this.maxBursts = maxBursts;
         this.collisionCounter = 0;
-        this.maxCollisions = 5;
+        this.maxCollisions = maxCollisions;
         this.velocity.mult(this.speed);
     }
 
@@ -100,7 +104,26 @@ class Bouncer {
     }
 
     isDead() {
-        return this.collisionCounter < this.maxCollisions;
+        return this.collisionCounter >= this.maxCollisions;
+    }
+
+    // burst into a bunch of smaller bouncers
+    burst() {
+        let children = [];
+        if (this.burstCounter < this.maxBursts) {
+            let parts = 5
+            for (let i = 0; i < parts; ++i) {
+                children.push(new Bouncer({
+                    position: p5.Vector.add(this.position, p5.Vector.random2D()),
+                    radius: this.radius / Math.sqrt(parts),
+                    c: this.c,
+                    mass: this.mass / parts,
+                    maxBursts: this.maxBursts - 1,
+                }))
+            }
+        }
+        this.burstCounter += 1;
+        return children;
     }
 }
 
@@ -130,11 +153,20 @@ function draw() {
         }
     }
 
+    let bouncer_children = [];
+
+    for (let b of bouncers) {
+        if (b.isDead()) {
+            bouncer_children.push(...b.burst());
+        }
+    }
+    
+    bouncers = bouncers.filter(b => !b.isDead());
+    bouncers.push(...bouncer_children);
+
     for (let b of bouncers) {
         b.draw();
     }
-    
-    bouncers = bouncers.filter(b => b.isDead());
 }
 
 function mousePressed() {
