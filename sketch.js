@@ -49,7 +49,8 @@ window.draw = function () {
 // spawn a new bouncer where the mouse clicks
 window.mousePressed = function () {
     if (mouseX > 0 && mouseX < width && mouseY > 0 && mouseY < height) {
-        bouncers.push(new Bouncer({position: createVector(mouseX, mouseY)}))
+        // bouncers.push(new Bouncer({position: createVector(mouseX, mouseY)}));
+        bouncers.push(new Bouncer({position: createVector(mouseX, mouseY), velocity: createVector(70, -5), remainingCollisions: 1, remainingBursts: 3, burstParts: 6, radius: 30}))
     }
 };
 

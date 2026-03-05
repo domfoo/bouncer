@@ -5,8 +5,9 @@ export class Bouncer {
         radius = 15,
         colorValue = color(random(255), random(255), random(255)),
         mass = 10,
-        remainingBursts = 1,
-        remainingCollisions = 3,
+        remainingBursts = 2,
+        burstParts = 5,
+        remainingCollisions = 5,
     } = {}) {
         this.position = position;
         this.velocity = velocity;
@@ -15,11 +16,13 @@ export class Bouncer {
         this.mass = mass;
 
         this.remainingBursts = remainingBursts;
+        this.burstParts = burstParts;
         this.remainingCollisions = remainingCollisions;
+        this.gravity = createVector(0, 0.4)
     }
 
     update() {
-        this.position.add(this.velocity);
+        this.position.add(this.velocity.add(this.gravity));
     }
 
     checkBounds() {
@@ -44,7 +47,7 @@ export class Bouncer {
         // bottom wall
         if (this.position.y > height - this.radius) {
             this.position.y = height - this.radius;
-            this.velocity.y = -this.velocity.y;
+            this.velocity.y = -this.velocity.y * 0.8; // floor absorbs some of the force
             this.remainingCollisions -= 1;
         }
     }
@@ -106,15 +109,15 @@ export class Bouncer {
     burst() {
         let children = [];
         if (this.remainingBursts > 0) {
-            let parts = 5
-            for (let i = 0; i < parts; ++i) {
+            for (let i = 0; i < this.burstParts; ++i) {
                 children.push(new Bouncer({
                     // add small offset so children don't perfectly overlap
                     position: p5.Vector.add(this.position, p5.Vector.random2D().mult(0.1)),
-                    radius: this.radius / Math.sqrt(parts),
+                    radius: this.radius / Math.sqrt(this.burstParts),
                     colorValue: this.colorValue,
-                    mass: this.mass / parts,
+                    mass: this.mass / this.burstParts,
                     remainingBursts: this.remainingBursts - 1,
+                    burstParts: this.burstParts,
                 }))
             }
         }
