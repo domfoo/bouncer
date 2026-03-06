@@ -6,7 +6,7 @@ export class Bouncer {
         colorValue = color(random(255), random(255), random(255)),
         mass = 10,
         remainingBursts = 2,
-        burstParts = 5,
+        burstParts = random(3,7),
         remainingCollisions = 5,
     } = {}) {
         this.position = position;
@@ -117,7 +117,6 @@ export class Bouncer {
                     colorValue: this.colorValue,
                     mass: this.mass / this.burstParts,
                     remainingBursts: this.remainingBursts - 1,
-                    burstParts: this.burstParts,
                 }))
             }
         }

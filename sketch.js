@@ -49,11 +49,29 @@ window.draw = function () {
 // spawn a new bouncer where the mouse clicks
 window.mousePressed = function () {
     if (mouseX > 0 && mouseX < width && mouseY > 0 && mouseY < height) {
-        // bouncers.push(new Bouncer({position: createVector(mouseX, mouseY)}));
-        bouncers.push(new Bouncer({position: createVector(mouseX, mouseY), velocity: createVector(70, -5), remainingCollisions: 1, remainingBursts: 3, burstParts: 6, radius: 30}))
+        // simple();
+        fireworks();
+        // bullet();
     }
 };
 
 window.windowResized = function () {
     resizeCanvas(windowWidth, windowHeight);
 };
+
+function simple() {
+    bouncers.push(new Bouncer({position: createVector(mouseX, mouseY)}));
+}
+
+function fireworks() {
+    let startX = random(0, width);
+    let startY = random(0, height * 0.6);
+    for (let i = 0; i < 30; ++i) {
+        bouncers.push(new Bouncer({position: createVector(startX, startY), radius: 5, remainingCollisions: 1, remainingBursts: 0}));
+    }
+}
+
+function bullet() {
+        bouncers.push(new Bouncer({position: createVector(0, height * 0.5), velocity: createVector(90, -5), remainingCollisions: 1, remainingBursts: 3, radius: 30}))
+
+}
