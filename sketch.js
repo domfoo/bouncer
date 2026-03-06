@@ -3,7 +3,18 @@ import { Bouncer } from "./Bouncer.js";
 let bouncers = [];
 
 window.setup = function () {
-    createCanvas(windowWidth, windowHeight);
+    let canvas = createCanvas(10, 10);
+    canvas.parent("canvas-container");
+
+    let button_bullet = createButton("bullet");
+    button_bullet.parent("input-container");
+    button_bullet.mousePressed(bullet);
+
+    let button_fireworks = createButton("fireworks");
+    button_fireworks.parent("input-container");
+    button_fireworks.mousePressed(fireworks);
+
+    resizeCanvasToContainer();
 };
 
 window.draw = function () {
@@ -49,15 +60,18 @@ window.draw = function () {
 // spawn a new bouncer where the mouse clicks
 window.mousePressed = function () {
     if (mouseX > 0 && mouseX < width && mouseY > 0 && mouseY < height) {
-        // simple();
-        fireworks();
-        // bullet();
+        simple();
     }
 };
 
 window.windowResized = function () {
-    resizeCanvas(windowWidth, windowHeight);
+    resizeCanvasToContainer();
 };
+
+function resizeCanvasToContainer() {
+    let canvasContainer = select("#canvas-container");
+    resizeCanvas(canvasContainer.elt.clientWidth, canvasContainer.elt.clientHeight);
+}
 
 function simple() {
     bouncers.push(new Bouncer({position: createVector(mouseX, mouseY)}));

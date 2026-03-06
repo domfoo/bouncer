@@ -11,7 +11,9 @@ A fun browser animation of a couple of bouncing balls using p5.js
 - [x] collision with each other
 - [x] bouncers burst when they break
 - [x] add gravity
+- [x] embed into website
 - [ ] make bouncing and collision sounds
+- [ ] generate a nice background in canvas
 - [ ] publish to [github pages](https://domfoo.github.io/bouncer)
 
 
